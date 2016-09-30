@@ -1,6 +1,6 @@
 include('shared.lua')
 -- Let client user know addon has loaded
-print "======================\nMedic Kiosk has loaded\n======================"
+MsgC( Color( 200, 100, 143), "====================================Medic Kiosk has been loaded======================================" )
 
 -- Fonts
 surface.CreateFont( "Title", {
