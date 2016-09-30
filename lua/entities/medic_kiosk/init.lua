@@ -24,17 +24,20 @@ function ENT:Initialize()
 			local new_price = said.sub(said, 12)
 			local new_price = tonumber(new_price)
 			local check_price = isnumber(new_price)
+
+			local lookingAtEnt = ply:GetEyeTrace().Entity
 			if check_price == true and new_price >= 0 and new_price <= 5000 then
-				if (ply == self:Getowning_ent()) then
-					for k, v in pairs(ents.FindByClass("medic_kiosk")) do
-							v:Setkiosk_price(new_price)
-							ply:ChatPrint("Kiosk price has been changed to " .. new_price .. "!")
-							return ""
-					end
-				end
+						ply:ChatPrint("Kiosk price has been changed to $" .. new_price .. "!")
+						for k, v in pairs(ents.FindByClass("medic_kiosk")) do
+							if v:Getowning_ent() == ply then
+								v:Setkiosk_price(new_price)
+								print(self:Getowning_ent())
+							end
+						end
+						return ""
 			else
 				if new_price > 5000 then
-					ply:ChatPrint("The max price you can you can set $5000, sorry!")
+					ply:ChatPrint("The max price you can you can set $5000.")
 					return ""
 				else
 					ply:ChatPrint("Nice try! Use a positive number.")
@@ -46,11 +49,19 @@ function ENT:Initialize()
 	hook.Add("PlayerSay", "changePrice", changePrice)
 
 	-- Set price of kiosk
-	self:Setkiosk_price( 500 )
+	if (self:Getkiosk_price() == nil) then
+		self:Setkiosk_price(500)
+	else
+		local price = self:Getkiosk_price()
+		self:Setkiosk_price(price)
+	end
 
   if (phys:IsValid()) then
 		phys:Wake()
 	end
+end
+
+function ENT:SpawnFunction(ply)
 end
 
 function ENT:Use( activator, caller )
@@ -58,7 +69,7 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 	caller:ChatPrint("You already have full health.")
 	else
 		if (caller:getDarkRPVar("money") >  self:Getkiosk_price()) then
-			caller:addMoney(self:Getkiosk_price())
+			caller:addMoney(-self:Getkiosk_price())
 			caller:SetHealth(100)
 			self:Getowning_ent():addMoney(self:Getkiosk_price())
 			self:EmitSound("items/smallmedkit1.wav")
@@ -74,12 +85,12 @@ function ENT:Destruct()
 end
 
 function ENT:Explode()
-	local explosion = ents.Create( "env_explosion" ) // Creating our explosion
-	explosion:SetKeyValue( "spawnflags", 144 ) //Setting the key values of the explosion
-	explosion:SetKeyValue( "iMagnitude", 0 ) // Setting the damage done by the explosion
-	explosion:SetKeyValue( "iRadiusOverride", 256 ) // Setting the radius of the explosion
-	explosion:SetPos(self:GetPos()) // Placing the explosion where we are
-	explosion:Spawn( ) // Spawning it
+	local explosion = ents.Create( "env_explosion" )
+	explosion:SetKeyValue( "spawnflags", 144 )
+	explosion:SetKeyValue( "iMagnitude", 0 )
+	explosion:SetKeyValue( "iRadiusOverride", 256 )
+	explosion:SetPos(self:GetPos())
+	explosion:Spawn( )
 	explosion:Fire("explode","",0)
 	self.Entity:Remove()
 end
@@ -96,7 +107,7 @@ function ENT:Think()
 end
 
 function allowPickUp(ply, ent)
-	if (ply:IsValid() and  (ent:GetClass() == "medic_kiosk")) then
+	if (ply:IsValid() and (ent:GetClass() == "medic_kiosk") and ply == ent:Getowning_ent()) then
 		return true
 	end
 end

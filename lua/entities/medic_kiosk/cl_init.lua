@@ -9,7 +9,8 @@ surface.CreateFont( "Owner", {font = "DermaDefault",extended = true,size = 15,an
 surface.CreateFont( "Price", {font = "DermaDefault",extended = false,size = 25,antialias = true,underline = false,})
 
 function ENT:Initialize()
-
+	local ply = LocalPlayer()
+	chat.AddText( Color( 100, 255, 255 ), "You can change your kiosk's price by typing /kioskprice (price).")
 end
 
 function ENT:Draw()
