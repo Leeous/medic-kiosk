@@ -1,7 +1,6 @@
 include('shared.lua')
 -- Let client user know addon has loaded
 MsgC( Color( 200, 100, 143), "\n\n============================\nMedic Kiosk has been loaded!\n" )
-MsgC( Color( 100, 200, 132), "           v1.1" )
 MsgC( Color( 200, 100, 143), "\n============================\n" )
 
 -- Fonts
