@@ -71,7 +71,7 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 		if (caller:getDarkRPVar("money") >  self:Getkiosk_price()) then
 			caller:addMoney(-self:Getkiosk_price())
 			caller:SetHealth(100)
-			-- self:Getowning_ent():addMoney(self:Getkiosk_price())
+			self:Getowning_ent():addMoney(self:Getkiosk_price())
 			self:EmitSound("items/smallmedkit1.wav")
 	else
 			caller:ChatPrint("You don't have enough money.")
