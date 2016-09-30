@@ -3,8 +3,9 @@ AddCSLuaFile( "shared.lua" )
 
 include('shared.lua')
 
-MsgC( Color( 200, 100, 143), "\n\n============================\nMedic Kiosk has been loaded!" )
-MsgC( Color( 200, 100, 143), "\n============================\n" )
+print("\n============================")
+print("Medic Kiosk has been loaded!")
+print("============================\n")
 
 
 function ENT:Initialize()
@@ -26,11 +27,9 @@ function ENT:Initialize()
 			if check_price == true and new_price >= 0 and new_price <= 5000 then
 				if (ply == self:Getowning_ent()) then
 					for k, v in pairs(ents.FindByClass("medic_kiosk")) do
-						if v:Getowning_ent() == ply then
 							v:Setkiosk_price(new_price)
 							ply:ChatPrint("Kiosk price has been changed to " .. new_price .. "!")
 							return ""
-						end
 					end
 				end
 			else

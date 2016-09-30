@@ -1,33 +1,12 @@
 include('shared.lua')
--- Let client user know addon has loaded
-MsgC( Color( 200, 100, 143), "\n\n============================\nMedic Kiosk has been loaded!\n" )
-MsgC( Color( 200, 100, 143), "\n============================\n" )
 
--- Fonts
-surface.CreateFont( "Title", {
-	font = "DermaDefault",
-	size = 35,
-	antialias = true,
-} )
+MsgC( Color( 0, 255, 5), "\n\n============================\n")
+MsgC( Color( 0, 255, 150), "Medic Kiosk has been loaded!")
+MsgC( Color( 0, 255, 5), "\n============================\n")
 
-surface.CreateFont( "Owner", {
-	font = "DermaDefault",
-	extended = true,
-	size = 15,
-	antialias = true,
-	underline = false,
-	italic = false,
-} )
-
-surface.CreateFont( "Price", {
-	font = "DermaDefault",
-	extended = false,
-	size = 25,
-	antialias = true,
-	underline = false,
-} )
-
--- Code
+surface.CreateFont( "Title", {font = "DermaDefault",size = 35,antialias = true,})
+surface.CreateFont( "Owner", {font = "DermaDefault",extended = true,size = 15,antialias = true,underline = false,italic = false,})
+surface.CreateFont( "Price", {font = "DermaDefault",extended = false,size = 25,antialias = true,underline = false,})
 
 function ENT:Initialize()
 
