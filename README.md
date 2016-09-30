@@ -8,3 +8,4 @@
 
 
 If you make a pull request, **please test it first**!
+Remember - this version is the **latest** and might have bugs! Scary!
