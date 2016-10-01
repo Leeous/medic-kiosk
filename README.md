@@ -1,5 +1,5 @@
 # Medic Kiosk
-## Installation
+### Installation
 1. Download ZIP
 2. Extract to `[server directory]/garrysmod/addons`
 3. Run the server
@@ -9,3 +9,5 @@
 
 If you make a pull request, **please test it first**!
 Remember - this version is the **latest** and might have bugs! Scary!
+
+[Workshop Link](http://steamcommunity.com/sharedfiles/filedetails/?id=771173724)
