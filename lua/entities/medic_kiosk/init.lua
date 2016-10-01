@@ -68,7 +68,7 @@ function ENT:Use( activator, caller )
 if (caller:Health() > 99 and caller:IsPlayer()) then
 	caller:ChatPrint("You already have full health.")
 	else
-		if (caller:getDarkRPVar("money") >  self:Getkiosk_price()) then
+		if (caller:getDarkRPVar("money") >=  self:Getkiosk_price()) then
 			caller:addMoney(-self:Getkiosk_price())
 			caller:SetHealth(100)
 			self:Getowning_ent():addMoney(self:Getkiosk_price())
