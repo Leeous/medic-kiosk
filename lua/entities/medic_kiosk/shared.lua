@@ -8,4 +8,5 @@ ENT.Contact			= "@LeeTheCoder"
 function ENT:SetupDataTables()
 	self:NetworkVar("Entity", 0, "owning_ent")
 	self:NetworkVar("Float", 0, "kiosk_price")
+	self:NetworkVar("Int", 0, "kiosk_type")
 end

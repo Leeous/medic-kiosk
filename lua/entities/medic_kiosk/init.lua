@@ -12,19 +12,18 @@ function ENT:Initialize()
 
   local phys = self:GetPhysicsObject()
 
-	function changePrice(ply, said)
+	function changeInfo(ply, said)
 		local said_check = string.lower(said)
 		local said_check = string.sub(said_check, 0, 11)
 		if said_check == "/kioskprice" then
 			local new_price = said.sub(said, 12)
 			local new_price = tonumber(new_price)
 			local check_price = isnumber(new_price)
+			local new_price = math.floor(new_price)
 
-			local lookingAtEnt = ply:GetEyeTrace().Entity
 			if check_price == true and new_price >= 0 and new_price <= 5000 then
 						for k, v in pairs(ents.FindByClass("medic_kiosk")) do
 							if v:Getowning_ent() == ply then
-								new_price = math.floor(new_price)
 								v:Setkiosk_price(new_price)
 								ply:ChatPrint("Kiosk price has been changed to $" .. new_price .. "!")
 							end
@@ -40,8 +39,23 @@ function ENT:Initialize()
 				end
 			end
 		end
+
+		local said_check2 = string.lower(said)
+		local said_check2 = string.sub(said_check2, 0, 16)
+
+		print(said_check2)
+
+		if said_check2 == "/changekiosktype" then
+			if self:Getkiosk_type() == 1 then
+				self:Setkiosk_type(0)
+				return ""
+			else
+				self:Setkiosk_type(1)
+				return ""
+			end
+		end
 	end
-	hook.Add("PlayerSay", "changePrice", changePrice)
+	hook.Add("PlayerSay", "changeInfo", changeInfo)
 
 	if (self:Getkiosk_price() == nil) then
 		self:Setkiosk_price(500)
@@ -68,6 +82,10 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 			caller:ChatPrint("You don't have enough money.")
 		end
 	end
+end
+
+function healPlayer()
+
 end
 
 function allowPickUp(ply, ent)

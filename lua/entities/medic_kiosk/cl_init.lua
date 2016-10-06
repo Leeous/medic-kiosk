@@ -3,6 +3,7 @@ include('shared.lua')
 surface.CreateFont( "Title", {font = "DermaDefault",size = 35,antialias = true,})
 surface.CreateFont( "Owner", {font = "DermaDefault",extended = true,size = 15,antialias = true,underline = false,italic = false,})
 surface.CreateFont( "Price", {font = "DermaDefault",extended = false,size = 25,antialias = true,underline = false,})
+surface.CreateFont( "Option", {font = "DermaDefault",extended = false,size = 20,antialias = true,underline = false,})
 
 function ENT:Initialize()
 	chat.AddText( Color( 100, 255, 255 ), "You can change your kiosk's price by typing /kioskprice (price).")
@@ -10,6 +11,22 @@ end
 
 function ENT:Draw()
 	self:DrawModel()
+
+	function pickLight_Heal()
+		if self:Getkiosk_type() == 0 then
+		return Color(255, 0, 0, 255)
+			else
+		return Color(105, 105, 105, 255)
+		end
+	end
+
+	function pickLight_Armor()
+		if self:Getkiosk_type() == 1 then
+		return Color(0, 0, 255, 255)
+			else
+		return Color(105, 105, 105, 255)
+		end
+	end
 
 	local Pos = self:GetPos()
 	local Ang = self:GetAngles()
@@ -30,10 +47,14 @@ function ENT:Draw()
 
 	cam.Start3D2D(Pos + Ang:Up() * 0 + Ang:Forward() * 6.75 + Ang:Right() * 0, Ang, 0.11)
 		draw.RoundedBox( 0, -55, -30, 100, 195, Color(0, 0, 0, 255))
-		draw.SimpleText( "Medic", "Title", 0, 75, Color( 255, 255, 255, 255 ), 1, 1)
-		draw.SimpleText( "Kiosk", "Title", 0, 100, Color( 255, 255, 255, 255 ), 1, 1)
+		draw.SimpleText( "Healing", "Option", 0, 100, pickLight_Heal(), 1, 1)
+		draw.SimpleText( "Armor", "Option", 0, 80, pickLight_Armor(), 1, 1)
 		draw.SimpleText( "$" .. kiosk_price, "Price", 0, -4, Color( 0, 255, 150, 255 ), 1, 1)
 		draw.SimpleText( "Owned by", "Owner", 0, 125, Color( 0, 255, 255, 255 ), 1, 1)
 		draw.SimpleText( owner, "Owner", 0, 140, Color( 255, 255, 255, 255 ), 1, 1)
   cam.End3D2D()
+	cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * 0 + Ang:Right() * -15, Ang, 0.11)
+		draw.RoundedBox( 0, -110, -41, 220, 70, Color(0, 0, 0, 255))
+		draw.SimpleText( "Medic Kiosk", "Title", 0, -5, Color( 255, 255, 255, 255 ), 1, 1)
+	cam.End3D2D()
 end
