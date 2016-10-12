@@ -39,31 +39,8 @@ function ENT:Initialize()
 				end
 			end
 		end
-
-		local said_check2 = string.lower(said)
-		local said_check2 = string.sub(said_check2, 0, 16)
-
-		print(said_check2)
-
-		if said_check2 == "/changekiosktype" then
-			if self:Getkiosk_type() == 1 then
-				self:Setkiosk_type(0)
-				return ""
-			else
-				self:Setkiosk_type(1)
-				return ""
-			end
-		end
 	end
 	hook.Add("PlayerSay", "changeInfo", changeInfo)
-
-	if (self:Getkiosk_price() == nil) then
-		self:Setkiosk_price(500)
-	else
-		local price = self:Getkiosk_price()
-		self:Setkiosk_price(price)
-	end
-
   if (phys:IsValid()) then
 		phys:Wake()
 	end
@@ -82,10 +59,6 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 			caller:ChatPrint("You don't have enough money.")
 		end
 	end
-end
-
-function healPlayer()
-
 end
 
 function allowPickUp(ply, ent)
