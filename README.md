@@ -17,5 +17,5 @@ Remember to define these in your server console and not your server.cfg.
 | --- | --- | --- |
 | medickiosk_limit | `number value` | How many Medic Kiosks one player can have at a time. |
 | medickiosk_disableautoadd | `true` or `false` | Whether or not the Medic Kiosk should be <br/> automatically added to the job **TEAM_MEDIC**. <br/>_Useful for people want to add the Medic Kiosk to custom jobs_.|
-| medickiosk_price | number value | How much it cost the medic to buy the Medic Kiosk. |
-| medickiosk_maxprice | number value | The maximum price the medic can charge for people to use their Kiosk. |
+| medickiosk_price | `number value` | How much it cost the medic to buy the Medic Kiosk. |
+| medickiosk_maxprice | `number value` | The maximum price the medic can charge for people to use their Kiosk. |
