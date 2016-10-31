@@ -1,27 +1,31 @@
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
-
-include('shared.lua')
+include("shared.lua")
 
 function ENT:Initialize()
 	self:SetModel( "models/props_lab/hevplate.mdl" )
-	if ( SERVER ) then self:PhysicsInit( SOLID_VPHYSICS ) end
+	if (SERVER) then self:PhysicsInit( SOLID_VPHYSICS ) end
 	self:SetMoveType(MOVETYPE_VPHYSICS)
+	self:SetCollisionGroup(11)
 	self:SetSolid(SOLID_VPHYSICS)
   self:SetUseType(SIMPLE_USE)
 
   local phys = self:GetPhysicsObject()
 
 	function changeInfo(ply, said)
+
 		local said_check = string.lower(said)
 		local said_check = string.sub(said_check, 0, 11)
+
 		if said_check == "/kioskprice" then
+
 			local new_price = said.sub(said, 12)
 			local new_price = tonumber(new_price)
 			local check_price = isnumber(new_price)
 			local new_price = math.floor(new_price)
 
-			if check_price == true and new_price >= 0 and new_price <= 5000 then
+			if check_price == true and new_price >= 0 and new_price <= GetConVar("medickiosk_maxprice"):GetInt() then
+
 						for k, v in pairs(ents.FindByClass("medic_kiosk")) do
 							if v:Getowning_ent() == ply then
 								v:Setkiosk_price(new_price)
@@ -29,13 +33,19 @@ function ENT:Initialize()
 							end
 						end
 						return ""
+
 			else
-				if new_price > 5000 then
-					ply:ChatPrint("The max price you can you can set $5000.")
+
+				if new_price > GetConVar("medickiosk_maxprice"):GetInt() then
+
+					ply:ChatPrint("The max price you can you can set $" .. GetConVar("medickiosk_maxprice"):GetInt() .. ".")
 					return ""
+
 				else
+
 					ply:ChatPrint("Nice try! Use a positive number.")
 					return ""
+
 				end
 			end
 		end

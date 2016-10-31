@@ -11,48 +11,28 @@ end
 
 function ENT:Draw()
 	self:DrawModel()
-
-	function pickLight_Heal()
-		if self:Getkiosk_type() == 0 then
-		return Color(255, 0, 0, 255)
-			else
-		return Color(105, 105, 105, 255)
-		end
-	end
-
-	function pickLight_Armor()
-		if self:Getkiosk_type() == 1 then
-		return Color(0, 0, 255, 255)
-			else
-		return Color(105, 105, 105, 255)
-		end
-	end
-
 	local Pos = self:GetPos()
 	local Ang = self:GetAngles()
-
 	local owner = self:Getowning_ent():GetName()
+	local kiosk_price = self:Getkiosk_price()
 
 	surface.SetFont( "Owner" )
 	local width, height = surface.GetTextSize( owner )
-
 	if (width > 80) then
 		owner = owner.sub(owner, 0, 9) .. "..."
 	end
-
-	local kiosk_price = self:Getkiosk_price()
 
 	Ang:RotateAroundAxis(Ang:Up(), 90)
 	Ang:RotateAroundAxis(Ang:Forward(), 90)
 
 	cam.Start3D2D(Pos + Ang:Up() * 0 + Ang:Forward() * 6.75 + Ang:Right() * 0, Ang, 0.11)
 		draw.RoundedBox( 0, -55, -30, 100, 195, Color(0, 0, 0, 255))
-		draw.SimpleText( "$" .. kiosk_price, "Price", 0, -4, Color( 0, 255, 150, 255 ), 1, 1)
-		draw.SimpleText( "Owned by", "Owner", 0, 95, Color( 0, 255, 255, 255 ), 1, 1)
+		draw.SimpleText( "$" .. string.Comma(kiosk_price), "Price", 0, -3, Color( 0, 255, 150, 255 ), 1, 1)
+		draw.SimpleText( "Owned by", "Owner", 0, 95, Color( 215, 180, 36, 255 ), 1, 1)
 		draw.SimpleText( owner, "Owner", 0, 110, Color( 255, 255, 255, 255 ), 1, 1)
   cam.End3D2D()
-	cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * 0 + Ang:Right() * -15, Ang, 0.11)
-		draw.RoundedBox( 0, -110, -41, 220, 70, Color(0, 0, 0, 255))
-		draw.SimpleText( "Medic Kiosk", "Title", 0, -5, Color( 255, 255, 255, 255 ), 1, 1)
+	cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * 0 + Ang:Right() * -15, Ang, 0.10)
+		draw.RoundedBox( 8, -110, -41, 220, 70, Color(0, 0, 0, 255))
+		draw.SimpleText( "Medic Kiosk", "Title", 0, -6, Color( 215, 180, 36, 255 ), 1, 1)
 	cam.End3D2D()
 end
