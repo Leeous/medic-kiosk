@@ -38,7 +38,7 @@ function ENT:Initialize()
 
 				if new_price > GetConVar("medickiosk_maxprice"):GetInt() then
 
-					ply:ChatPrint("The max price you can you can set $" .. GetConVar("medickiosk_maxprice"):GetInt() .. ".")
+					ply:ChatPrint("The max price you can you can set is $" .. GetConVar("medickiosk_maxprice"):GetInt() .. ".")
 					return ""
 
 				else
