@@ -9,8 +9,6 @@
 Remember - this version is the **latest** and might have bugs! Scary!
 Do not use this version for your server if it is public.
 
-Also, check
-
 ## Server console variables
 
 Remember to define these in your server console and not your _server.cfg_.
