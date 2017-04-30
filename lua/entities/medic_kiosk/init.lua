@@ -9,6 +9,7 @@ function ENT:Initialize()
 	self:SetCollisionGroup(11)
 	self:SetSolid(SOLID_VPHYSICS)
   self:SetUseType(SIMPLE_USE)
+	self:Setkiosk_price(GetConVar("medickiosk_minprice"):GetInt())
 
   local phys = self:GetPhysicsObject()
 
