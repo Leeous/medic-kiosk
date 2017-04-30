@@ -1,7 +1,7 @@
 # Medic Kiosk
 [Workshop Link](http://steamcommunity.com/sharedfiles/filedetails/?id=771173724)
 ### Installation
-1. Download ZIP
+1. Download ZIP from [releases](https://github.com/Leeous/medic-kiosk/releases).
 2. Extract to `[server directory]/garrysmod/addons`
 3. Run the server
 4. The _Medic Kiosk_ entity is automatically added to the **TEAM_MEDIC** job
@@ -9,9 +9,11 @@
 Remember - this version is the **latest** and might have bugs! Scary!
 Do not use this version for your server if it is public.
 
+Also, check
+
 ## Server console variables
 
-Remember to define these in your server console and not your server.cfg.
+Remember to define these in your server console and not your _server.cfg_.
 
 | Variable | Value | Description |
 | --- | --- | --- |
