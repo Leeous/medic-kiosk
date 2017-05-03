@@ -7,11 +7,14 @@
 4. The _Medic Kiosk_ entity is automatically added to the **TEAM_MEDIC** job
 
 Remember - this version is the **latest** and might have bugs! Scary!
+If you're looking for a version you can use on your server, check the [releases](https://github.com/Leeous/medic-kiosk/releases) page.
 Do not use this version for your server if it is public.
 
 ## Server console variables
 
 Remember to define these in your server console and not your _server.cfg_.
+Like this:
+![](http://i.imgur.com/Ad9mFLc.gif)
 
 | Variable | Value | Description |
 | --- | --- | --- |

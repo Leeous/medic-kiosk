@@ -6,7 +6,7 @@ ENT.Author			= "LeeTheCoder"
 ENT.Contact			= "@LeeTheCoder"
 
 ENT.AdminSpawnable = true
-ENT.Spawnable 		= false
+ENT.Spawnable 		= true
 
 function ENT:SetupDataTables()
 	self:NetworkVar("Entity", 0, "owning_ent")
