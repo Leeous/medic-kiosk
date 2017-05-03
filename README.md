@@ -17,6 +17,7 @@ Do not use this version for your server if it is public.
 Remember to define these in your server console and not your _server.cfg_.
 
 Like this:
+
 ![](http://i.imgur.com/Ad9mFLc.gif)
 
 | Variable | Value | Description |
