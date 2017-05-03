@@ -25,7 +25,7 @@ function ENT:Initialize()
 			local check_price = isnumber(new_price)
 			local new_price = math.floor(new_price)
 
-			if check_price == true and new_price >= 0 and new_price <= GetConVar("medickiosk_maxprice"):GetInt() then
+			if check_price == true and new_price >= 0 and new_price <= GetConVar("medickiosk_maxprice"):GetInt() and new_price >= GetConVar("medickiosk_minprice"):GetInt() then
 
 						for k, v in pairs(ents.FindByClass("medic_kiosk")) do
 							if v:Getowning_ent() == ply then
@@ -44,7 +44,7 @@ function ENT:Initialize()
 
 				else
 
-					ply:ChatPrint("Nice try! Use a positive number.")
+					ply:ChatPrint("The minimum price you can you can set is $" .. GetConVar("medickiosk_minprice"):GetInt() .. ".")
 					return ""
 
 				end
