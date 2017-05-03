@@ -2,6 +2,8 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include("shared.lua")
 
+delay = 0
+
 function ENT:Initialize()
 	self:SetModel( "models/props_lab/hevplate.mdl" )
 	if (SERVER) then self:PhysicsInit( SOLID_VPHYSICS ) end
@@ -58,7 +60,6 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
-checkDelay()
 if (caller:Health() > 99 and caller:IsPlayer()) then
 	caller:ChatPrint("You already have full health.")
 	else
@@ -77,10 +78,6 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 			caller:ChatPrint("You don't have enough money.")
 		end
 	end
-end
-
-function checkDelay ()
-
 end
 
 function allowPickUp(ply, ent)
