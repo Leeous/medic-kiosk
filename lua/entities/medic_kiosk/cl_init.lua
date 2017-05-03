@@ -36,6 +36,3 @@ function ENT:Draw()
 		draw.SimpleText( "Medic Kiosk", "Title", 0, -6, Color( 215, 180, 36, 255 ), 1, 1)
 	cam.End3D2D()
 end
-
-function ENT:Use()
-end

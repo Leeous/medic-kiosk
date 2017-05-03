@@ -58,18 +58,29 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
+checkDelay()
 if (caller:Health() > 99 and caller:IsPlayer()) then
 	caller:ChatPrint("You already have full health.")
 	else
 		if (caller:getDarkRPVar("money") >=  self:Getkiosk_price()) then
-			caller:addMoney(-self:Getkiosk_price())
-			caller:SetHealth(100)
-			self:Getowning_ent():addMoney(self:Getkiosk_price())
-			self:EmitSound("items/smallmedkit1.wav")
+			if delay <= CurTime() then
+				caller:addMoney(-self:Getkiosk_price())
+				caller:SetHealth(100)
+				self:Getowning_ent():addMoney(self:Getkiosk_price())
+				self:EmitSound("items/smallmedkit1.wav")
+				delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
+			else
+				caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
+			end
+
 	else
 			caller:ChatPrint("You don't have enough money.")
 		end
 	end
+end
+
+function checkDelay ()
+
 end
 
 function allowPickUp(ply, ent)
