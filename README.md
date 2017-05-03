@@ -22,6 +22,7 @@ Like this:
 | medickiosk_disableautoadd | `true` or `false` | Whether or not the Medic Kiosk should be <br/> automatically added to the job **TEAM_MEDIC**. <br/>_Useful for people want to add the Medic Kiosk to custom jobs_.|
 | medickiosk_price | `number value` | How much it cost the medic to buy the Medic Kiosk. |
 | medickiosk_maxprice | `number value` | The maximum price the medic can charge for people to use their Kiosk. |
+| medickiosk_minprice | `number value` | The minimum price the medic can charge for people to use their Kiosk. |
 
 #### Links
 [Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=771173724)  
