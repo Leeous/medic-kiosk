@@ -23,7 +23,7 @@ Like this:
 | medickiosk_price | `number value` | How much it cost the medic to buy the Medic Kiosk. |
 | medickiosk_maxprice | `number value` | The maximum price the medic can charge for people to use their Kiosk. |
 | medickiosk_minprice | `number value` | The minimum price the medic can charge for people to use their Kiosk. |
-| medickiosk_cooldown | `number value` | How long the player must wait before using the Medic Kiosk again. <br/>_The value represents seconds._ |
+| medickiosk_cooldown | `number value` | How long a player must wait before using the Medic Kiosk again. <br/>_The value represents seconds._ |
 
 #### Links
 [Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=771173724)  
