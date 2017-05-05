@@ -2,11 +2,12 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include("shared.lua")
 
+-- Variables/tables
 delay = 0
 
 function ENT:Initialize()
 	self:SetModel( "models/props_lab/hevplate.mdl" )
-	if (SERVER) then self:PhysicsInit( SOLID_VPHYSICS ) end
+	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetCollisionGroup(11)
 	self:SetSolid(SOLID_VPHYSICS)
@@ -73,10 +74,19 @@ if (caller:Health() > 99 and caller:IsPlayer()) then
 			else
 				caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
 			end
-
 	else
 			caller:ChatPrint("You don't have enough money.")
 		end
+	end
+end
+
+function ENT:StartTouch( entity )
+	if entity:GetClass() == "medic_kiosk_refill" then
+		local vPoint = entity:GetPos()
+		local effectdata = EffectData()
+		effectdata:SetOrigin( vPoint )
+		util.Effect( "ManhackSparks", effectdata )
+		entity:Remove()
 	end
 end
 
