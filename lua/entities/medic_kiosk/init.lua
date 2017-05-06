@@ -13,6 +13,7 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_VPHYSICS)
   self:SetUseType(SIMPLE_USE)
 	self:Setkiosk_price(GetConVar("medickiosk_minprice"):GetInt())
+	self:Setkiosk_fuel_level( 100 )
 
   local phys = self:GetPhysicsObject()
 
@@ -61,29 +62,36 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
-if (caller:Health() > 99 and caller:IsPlayer()) then
-	caller:ChatPrint("You already have full health.")
-	else
-		if (caller:getDarkRPVar("money") >=  self:Getkiosk_price()) then
-			if delay <= CurTime() then
-				caller:addMoney(-self:Getkiosk_price())
-				caller:SetHealth(100)
-				self:Getowning_ent():addMoney(self:Getkiosk_price())
-				self:EmitSound("items/smallmedkit1.wav")
-				delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
-			else
-				caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
+if self:Getkiosk_fuel_level() > 0 then
+	if (caller:Health() > 99 and caller:IsPlayer()) then
+		caller:ChatPrint("You already have full health.")
+		else
+			if (caller:getDarkRPVar("money") >=  self:Getkiosk_price()) then
+				if delay <= CurTime() then
+					caller:addMoney(-self:Getkiosk_price())
+					caller:SetHealth(100)
+					self:Getowning_ent():addMoney(self:Getkiosk_price())
+					self:EmitSound("items/smallmedkit1.wav")
+					delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
+					local fuelLevel = self:Getkiosk_fuel_level()
+					local newLevel = fuelLevel - 25
+					self:Setkiosk_fuel_level(newLevel)
+				else
+					caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
+				end
+		else
+				caller:ChatPrint("You don't have enough money.")
 			end
-	else
-			caller:ChatPrint("You don't have enough money.")
 		end
-	end
+end
+
 end
 
 function ENT:StartTouch( entity )
 	if entity:GetClass() == "medic_kiosk_refill" then
 		local vPoint = entity:GetPos()
 		local effectdata = EffectData()
+		self:Setkiosk_fuel_level(100)
 		effectdata:SetOrigin( vPoint )
 		util.Effect( "ManhackSparks", effectdata )
 		entity:Remove()

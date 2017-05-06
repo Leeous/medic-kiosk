@@ -14,7 +14,7 @@ timer.Simple(4, function()
       DarkRP.createEntity("Medic Kiosk Refill", {
         ent = "medic_kiosk_refill",
         model = "models/healthvial.mdl",
-        price = 500,
+        price = 100,
         max = 2,
         cmd = "buymedickioskrefill",
         allowed = {TEAM_MEDIC}

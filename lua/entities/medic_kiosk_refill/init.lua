@@ -14,9 +14,9 @@ function ENT:Initialize()
   self:SetUseType(SIMPLE_USE)
 end
 
-function allowPickUp(ply, ent)
-	if (ply:IsValid() and (ent:GetClass() == "medic_kiosk") and ply == ent:Getowning_ent()) then
-		return true
-	end
-end
-hook.Add("PhysgunPickup", "allowPickUp", allowPickUp)
+-- function allowPickUp(ply, ent)
+-- 	if (ply:IsValid() and (ent:GetClass() == "medic_kiosk") and ply == ent:Getowning_ent()) then
+-- 		return true
+-- 	end
+-- end
+-- hook.Add("PhysgunPickup", "allowPickUp", allowPickUp)
