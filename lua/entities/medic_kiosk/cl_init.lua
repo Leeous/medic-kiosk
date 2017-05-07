@@ -2,9 +2,9 @@ include('shared.lua')
 
 surface.CreateFont( "Title", {font = "DermaDefault",size = 35,antialias = true, weight = 700})
 surface.CreateFont( "Owner", {font = "DermaDefault",extended = true,size = 15,antialias = true,underline = false,italic = false,})
-surface.CreateFont( "Price", {font = "DermaDefault",extended = false,size = 35,antialias = true,underline = false,})
+surface.CreateFont( "Price", {font = "DermaDefault",extended = false,size = 25,antialias = true,underline = false,})
 surface.CreateFont( "Option", {font = "DermaDefault",extended = false,size = 20,antialias = true,underline = false,})
-surface.CreateFont( "Fuel level", {font = "Default",extended = true,size = 12,antialias = true,underline = true, weight = 300})
+surface.CreateFont( "Fuel level", {font = "DermaDefault",extended = true,size = 17,antialias = true,underline = false, weight = 700})
 
 -- Variables
 ply = LocalPlayer()
@@ -22,8 +22,8 @@ function ENT:Draw()
 	}
 
 	function getFuelLevel()
-		if entData.fuelLevel > 88 then
-			return 88
+		if entData.fuelLevel > 90 then
+			return 90
 		else
 			return entData.fuelLevel
 		end
@@ -36,23 +36,24 @@ function ENT:Draw()
 	surface.SetFont( "Owner" )
 	local width, height = surface.GetTextSize( entData.owner )
 	if (width > 80) then
-		owner = owner.sub(owner, 0, 9) .. "..."
+		owner_name = entData.owner
+		entData.owner = owner_name.sub(owner_name, 0, 9) .. "..."
 	end
 
 	Ang:RotateAroundAxis(Ang:Up(), 90)
 	Ang:RotateAroundAxis(Ang:Forward(), 90)
 
-	cam.Start3D2D(Pos + Ang:Up() * 0 + Ang:Forward() * 6.75 + Ang:Right() * 0, Ang, 0.11)
-		draw.RoundedBox( 0, -55, -30, 100, 195, Color(0, 0, 0, 255))
-		draw.SimpleText( "$" .. string.Comma(entData.price), "Price", -2, -5, Color( 0, 255, 150, 255 ), 1, 1)
-		draw.SimpleText( "Owned by", "Owner", 0, 95, Color(215, 180, 36, 255), 1, 1)
-		draw.SimpleText( entData.owner, "Owner", 0, 110, Color( 255, 255, 255, 255 ), 1, 1)
+	cam.Start3D2D(Pos + Ang:Up() * 0 + Ang:Forward() * 7.50 + Ang:Right() * 0, Ang, 0.11)
+		draw.RoundedBox( 0, -55, -30, 95, 195, Color(0, 0, 0, 255))
+		draw.SimpleText( "$" .. string.Comma(entData.price), "Price", -7, -5, Color( 0, 255, 150, 255 ), 1, 1)
+		draw.SimpleText( "Owned by", "Owner", -7, 95, Color(215, 180, 36, 255), 1, 1)
+		draw.SimpleText( entData.owner, "Owner", -7, 110, Color( 0, 255, 255, 255 ), 1, 1)
 		surface.SetDrawColor( 215, 180, 36, 255 )
-		surface.DrawOutlinedRect( -48, 150, 92, 10 )
-		surface.DrawRect( -46, 150, getFuelLevel(), 10 )
-		surface.SetFont( "Fuel level" )
 		surface.SetTextColor( 255, 255, 255, 255 )
-		surface.SetTextPos( -10, 135 )
+		surface.DrawOutlinedRect( -54, 150, 92, 10 )
+		surface.DrawRect( -54, 150, getFuelLevel(), 10 )
+		surface.SetFont( "Fuel level" )
+		surface.SetTextPos( -19, 130 )
 		surface.DrawText( "Fuel" )
   cam.End3D2D()
 	cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * 0 + Ang:Right() * -15, Ang, 0.10)

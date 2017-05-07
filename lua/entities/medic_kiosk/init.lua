@@ -74,7 +74,7 @@ function ENT:Use( activator, caller )
 						self:EmitSound("items/smallmedkit1.wav")
 						delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
 						local fuelLevel = self:Getkiosk_fuel_level()
-						local newLevel = fuelLevel - 25
+						local newLevel = fuelLevel - 10
 						self:Setkiosk_fuel_level(newLevel)
 					else
 						caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
