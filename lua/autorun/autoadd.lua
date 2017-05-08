@@ -8,7 +8,6 @@ timer.Simple(4, function()
           startExpanded = true, -- Whether the category is expanded when you open the F4 menu.
           color = Color(215, 180, 36, 255), -- The color of the category header.
       }
-
       DarkRP.createEntity("Medic Kiosk", {
         ent = "medic_kiosk",
         model = "models/props_lab/hevplate.mdl",
@@ -18,8 +17,7 @@ timer.Simple(4, function()
         allowed = {TEAM_MEDIC},
         category = "Medic Kiosk"
       })
-
-      DarkRP.createEntity("Medic Kiosk Refill", {
+      DarkRP.createEntity("Medic Kiosk (Refill)", {
         ent = "medic_kiosk_refill",
         model = "models/healthvial.mdl",
         price = 100,
