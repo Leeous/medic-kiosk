@@ -62,6 +62,11 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
+	if caller == self:Getowning_ent() then
+		caller:ChatPrint("You can change your kiosk's price by typing /kioskprice (price).")
+	end
+
+
 	if self:Getkiosk_fuel_level() > 0 then
 		if (caller:Health() > 99 and caller:IsPlayer()) then
 			caller:ChatPrint("You already have full health.")

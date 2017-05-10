@@ -10,11 +10,9 @@ surface.CreateFont( "Fuel level", {font = "DermaDefault",extended = true,size = 
 ply = LocalPlayer()
 
 function ENT:Initialize()
-	chat.AddText( Color( 100, 255, 255 ), "You can change your kiosk's price by typing /kioskprice (price).")
 end
 
 function ENT:Draw()
-
 	entData = {
 		price = self:Getkiosk_price(),
 		owner = self:Getowning_ent():GetName(),
