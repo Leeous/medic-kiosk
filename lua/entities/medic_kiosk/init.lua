@@ -1,8 +1,9 @@
+-- Variables/tables/precaches/etc
+resource.AddFile("resource/fonts/OpenSans-ExtraBold.ttf")
+resource.AddFile("resource/fonts/OpenSans-Regular.ttf")
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include("shared.lua")
-
--- Variables/tables
 delay = 0
 
 function ENT:Initialize()
@@ -13,9 +14,14 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_VPHYSICS)
   self:SetUseType(SIMPLE_USE)
 	self:Setkiosk_price(GetConVar("medickiosk_minprice"):GetInt())
-	self:Setkiosk_fuel_level( 100 )
-
-  local phys = self:GetPhysicsObject()
+	self:Setkiosk_fuel_level( 480 )
+	util.AddNetworkString( "usedMK" )
+	util.AddNetworkString( "alertMedic" )
+	local phys = self:GetPhysicsObject()
+	if self:Getowning_ent() then
+		net.Start( "alertMedic" )
+		net.Send(self:Getowning_ent())
+	end
 
 	function changeInfo(ply, said)
 
@@ -62,11 +68,6 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
-	if caller == self:Getowning_ent() then
-		caller:ChatPrint("You can change your kiosk's price by typing /kioskprice (price).")
-	end
-
-
 	if self:Getkiosk_fuel_level() > 0 then
 		if (caller:Health() > 99 and caller:IsPlayer()) then
 			caller:ChatPrint("You already have full health.")
@@ -79,8 +80,17 @@ function ENT:Use( activator, caller )
 						self:EmitSound("items/smallmedkit1.wav")
 						delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
 						local fuelLevel = self:Getkiosk_fuel_level()
-						local newLevel = fuelLevel - 10
-						self:Setkiosk_fuel_level(newLevel)
+						if fuelLevel - 50 < 0 then
+							self:Setkiosk_fuel_level(0)
+						else
+							local newLevel = fuelLevel - 50
+							self:Setkiosk_fuel_level(newLevel)
+						end
+						if self:Getowning_ent() then
+							net.Start( "usedMK" )
+								net.WriteEntity( caller )
+							net.Send(self:Getowning_ent())
+						end
 					else
 						caller:ChatPrint("You must wait before using this again. The cooldown is " .. GetConVar("medickiosk_cooldown"):GetInt() .. " seconds.")
 					end
@@ -95,12 +105,15 @@ end
 
 function ENT:StartTouch( entity )
 	if entity:GetClass() == "medic_kiosk_refill" then
-		local vPoint = entity:GetPos()
-		local effectdata = EffectData()
-		self:Setkiosk_fuel_level(100)
-		effectdata:SetOrigin( vPoint )
-		util.Effect( "ManhackSparks", effectdata )
-		entity:Remove()
+		if self:Getkiosk_fuel_level() >= 480 then
+		else
+			local vPoint = entity:GetPos()
+			local effectdata = EffectData()
+			self:Setkiosk_fuel_level(480)
+			effectdata:SetOrigin( vPoint )
+			util.Effect( "ManhackSparks", effectdata )
+			entity:Remove()
+		end
 	end
 end
 

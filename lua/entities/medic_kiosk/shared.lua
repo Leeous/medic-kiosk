@@ -12,4 +12,5 @@ function ENT:SetupDataTables()
 	self:NetworkVar("Entity", 0, "owning_ent")
 	self:NetworkVar("Int", 0, "kiosk_price")
 	self:NetworkVar("Int", 1, "kiosk_fuel_level")
+	self:NetworkVar("Int", 2, "kiosk_used")
 end

@@ -13,10 +13,3 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_VPHYSICS)
   self:SetUseType(SIMPLE_USE)
 end
-
--- function allowPickUp(ply, ent)
--- 	if (ply:IsValid() and (ent:GetClass() == "medic_kiosk") and ply == ent:Getowning_ent()) then
--- 		return true
--- 	end
--- end
--- hook.Add("PhysgunPickup", "allowPickUp", allowPickUp)
