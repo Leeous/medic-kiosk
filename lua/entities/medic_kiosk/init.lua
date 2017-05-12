@@ -78,6 +78,7 @@ function ENT:Use( activator, caller )
 						caller:SetHealth(100)
 						self:Getowning_ent():addMoney(self:Getkiosk_price())
 						self:EmitSound("items/smallmedkit1.wav")
+						self:Setkiosk_used(self:Getkiosk_used() + 1)
 						delay = CurTime() + GetConVar("medickiosk_cooldown"):GetInt()
 						local fuelLevel = self:Getkiosk_fuel_level()
 						if fuelLevel - 50 < 0 then
