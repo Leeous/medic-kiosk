@@ -94,11 +94,12 @@ net.Receive( "usedMK", function()
 	caller = net.ReadEntity()
 	notification.AddLegacy( caller:Name() .. " used your Medic Kiosk!", NOTIFY_GENERIC, 2 )
 	surface.PlaySound( "buttons/button15.wav" )
-	print(entData.fuelLevel)
+	print(caller:Name() .. " used your Medic Kiosk!")
 end )
 
 -- Tells player how to change the price of the Medic Kiosk
 net.Receive( "alertMedic", function()
 	notification.AddLegacy( "You can change your kiosk's price by typing /kioskprice (price).", NOTIFY_HINT, 10)
 	surface.PlaySound( "buttons/button15.wav" )
+	print("You can change your kiosk's price by typing /kioskprice (price).")
 end )

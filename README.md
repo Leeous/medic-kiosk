@@ -1,5 +1,4 @@
-# Medic Kiosk
-
+![alt text](http://i.imgur.com/75CfMe6.png "Logo")
 ### Installation
 1. Download ZIP from [releases](https://github.com/Leeous/medic-kiosk/releases)
 2. Extract to `[server directory]/garrysmod/addons`
