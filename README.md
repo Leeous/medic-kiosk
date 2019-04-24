@@ -16,18 +16,14 @@ Like this:
 
 | Variable | Value | Description |
 | --- | --- | --- |
-| medickiosk_limit | `number value` | How many Medic Kiosks one player can have at a time. |
-| medickiosk_disableautoadd | `0` or `1` | Whether or not the Medic Kiosk should be <br/> automatically added to the job **TEAM_MEDIC**. <br/>_Useful for people want to add the Medic Kiosk to custom jobs_.|
-| medickiosk_price | `number value` | How much it cost the medic to buy the Medic Kiosk. |
 | medickiosk_maxprice | `number value` | The maximum price the medic can charge for people to use their Kiosk. |
 | medickiosk_minprice | `number value` | The minimum price the medic can charge for people to use their Kiosk. |
 | medickiosk_cooldown | `number value` | How long a player must wait before using the Medic Kiosk again. <br/>_The value represents seconds._ |
 
 #### Links
 [Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=771173724)  
-[Trello](https://trello.com/b/3twwEEil/medic-kiosk)  
 [YouTube video](https://youtu.be/QqPFTECHdJ0)
 
 ##### Social
-[Twitter](https://twitter.com/LeeTheCoder)  
-[Website](https://leethecoder.com/)
+[Twitter](https://twitter.com/LeeTheCoder)
+[Website](https://leeous.github.io/)

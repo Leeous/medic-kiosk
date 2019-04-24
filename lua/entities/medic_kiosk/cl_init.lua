@@ -18,7 +18,7 @@ function ENT:Draw()
 		price = self:Getkiosk_price(),
 		owner = self:Getowning_ent():GetName(),
 		used = self:Getkiosk_used(),
-		fuelLevel = self:Getkiosk_fuel_level()
+		fuelLevel = self:Getkiosk_fuel_level(),
 	}
 
 	self:DrawModel()
@@ -55,38 +55,64 @@ function ENT:Draw()
 	Ang:RotateAroundAxis(Ang:Up(), 90)
 	Ang:RotateAroundAxis(Ang:Forward(), 90)
 
-	-- Info panel
-	cam.Start3D2D(Pos + Ang:Up() * 0.95 + Ang:Forward() * 7.50 + Ang:Right() * 0, Ang, 0.05)
-		surface.SetDrawColor( 0, 0, 0, 255 )
-		surface.DrawRect( -120, 345, 205, -558 )
-		draw.SimpleText( "$" .. string.Comma(entData.price), "Price", -20, -10, Color( 0, 255, 150, 255 ), 1, 1)
-		draw.SimpleText( "Owned by", "Owner title", -20, -170, Color(255, 255, 255, 255), 1, 1)
-		draw.SimpleText( entData.owner, "Owner", -20, -135, Color( 0, 150, 255, 255 ), 1, 1)
-		draw.SimpleText( entData.used, "Other", -20, 210, Color( 255, 255, 255, 255 ), 1, 1)
-		draw.SimpleText( "uses", "Uses label", -20, 275, Color( 255, 255, 255, 255 ), 1, 1)
-  cam.End3D2D()
 
-	-- Title bar
-	cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * -11.3 + Ang:Right() * -19.2, Ang, 0.05)
-		draw.RoundedBox( 14, 0, 0, 450, 150, Color(0, 0, 0, 255))
-		surface.SetTextColor( 215, 180, 36, 255 )
-		surface.SetTextPos( 55, 35 )
-		surface.SetFont( "Title" )
-		surface.DrawText( "Medic Kiosk" )
-	cam.End3D2D()
+	--[[
+	Check if player is close enough to the entity to be drawing these screens.
+	]]--
+	if (PlayerWithinBounds(LocalPlayer(), self, 500)) then
+		-- Info panel
+		cam.Start3D2D(Pos + Ang:Up() * 0.95 + Ang:Forward() * 7.50 + Ang:Right() * 0, Ang, 0.05)
+			surface.SetDrawColor( 0, 0, 0, 255 )
+			surface.DrawRect( -120, 345, 205, -558 )
+			draw.SimpleText( "$" .. string.Comma(entData.price), "Price", -20, -10, Color( 0, 255, 150, 255 ), 1, 1)
+			draw.SimpleText( "Owned by", "Owner title", -20, -170, Color(255, 255, 255, 255), 1, 1)
+			draw.SimpleText( entData.owner, "Owner", -20, -135, Color( 0, 150, 255, 255 ), 1, 1)
+			draw.SimpleText( entData.used, "Other", -20, 210, Color( 255, 255, 255, 255 ), 1, 1)
+			draw.SimpleText( "uses", "Uses label", -20, 275, Color( 255, 255, 255, 255 ), 1, 1)
+		cam.End3D2D()
 
-	-- Fuel bar
-	cam.Start3D2D(Pos + Ang:Up() * 1.85 + Ang:Forward() * -11 + Ang:Right() * 16.5, Ang, 0.05)
-		surface.DrawRect( 0, 0, 180, -530 )
-		surface.SetTextColor( 255, 255, 255, 255 )
-		surface.SetDrawColor(117, 117, 0, 255)
-		surface.DrawRect( 0, 0, 180, -480 )
-		draw.OutlinedBox( 0, -3.5, 180, -480, 10, Color(153, 153, 0, 255) )
-		surface.DrawRect( 0, 0, 180, getFuelLevel())
-		surface.SetFont( "Fuel level" )
-		surface.SetTextPos( 59, -529 )
-		surface.DrawText( "Fuel" )
-	cam.End3D2D()
+		-- Title bar
+		cam.Start3D2D(Pos + Ang:Up() * 1.1 + Ang:Forward() * -11.3 + Ang:Right() * -19.2, Ang, 0.05)
+			draw.RoundedBox( 14, 0, 0, 450, 150, Color(0, 0, 0, 255))
+			surface.SetTextColor( Color(255, 255, 255) )
+			surface.SetTextPos( 55, 35 )
+			surface.SetFont( "Title" )
+			surface.DrawText( "Medic Kiosk" )
+		cam.End3D2D()
+
+		-- Fuel bar
+		cam.Start3D2D(Pos + Ang:Up() * 1.85 + Ang:Forward() * -11 + Ang:Right() * 16.5, Ang, 0.05)
+			surface.DrawRect( 0, 0, 180, -530 )
+			surface.SetTextColor( 255, 255, 255, 255 )
+			surface.SetDrawColor(117, 117, 0, 255)
+			surface.DrawRect( 0, 0, 180, -480 )
+			draw.OutlinedBox( 0, -3.5, 180, -480, 10, Color(153, 153, 0, 255) )
+			surface.DrawRect( 0, 0, 180, getFuelLevel())
+			surface.SetFont( "Fuel level" )
+			surface.SetTextPos( 55, -529 )
+			surface.DrawText( "Fuel" )
+		cam.End3D2D()
+
+		if self:Getowning_ent():GetEyeTrace().Entity == self then
+			cam.Start3D2D(Pos + Ang:Up() * 1.85 + Ang:Forward() * -20 + Ang:Right() * 20, Ang, 0.05)
+				surface.SetTextColor( 255, 255, 255, 255 )
+				surface.SetFont( "Fuel level" )
+				surface.SetTextPos( 195, 50 )
+				surface.DrawText( "Medic Kisok Commands:" )
+				surface.SetTextPos( 195, 90 )
+				surface.DrawText( "/kioskprice [price]" )
+				surface.SetTextPos( 195, 130 )
+				surface.DrawText( "/kioskcolor [color] (Ex: /kioskcolor red)" )
+			cam.End3D2D()
+		end
+	end
+end
+
+function ENT:Think()
+end
+
+function PlayerWithinBounds( ply, otherPly, dist )
+	return ply:GetPos():DistToSqr( otherPly:GetPos() ) < ( dist*dist )
 end
 
 -- Tells the owner of the Medic Kiosk that someone has used it
@@ -99,7 +125,7 @@ end )
 
 -- Tells player how to change the price of the Medic Kiosk
 net.Receive( "alertMedic", function()
-	notification.AddLegacy( "You can change your kiosk's price by typing /kioskprice (price).", NOTIFY_HINT, 10)
+	notification.AddLegacy( "Look at your Medic Kiosk to view the commands.", NOTIFY_HINT, 10)
 	surface.PlaySound( "buttons/button15.wav" )
-	print("You can change your kiosk's price by typing /kioskprice (price).")
 end )
+
