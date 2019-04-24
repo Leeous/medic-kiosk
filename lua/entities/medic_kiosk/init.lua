@@ -9,15 +9,17 @@ delay = 0
 function ENT:Initialize()
 	self:SetModel( "models/props_lab/hevplate.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
-	self:SetMoveType(MOVETYPE_VPHYSICS)
+	self:SetMoveType(MOVETYPE_NONE)
 	self:SetCollisionGroup(11)
 	self:SetSolid(SOLID_VPHYSICS)
-  self:SetUseType(SIMPLE_USE)
+  	self:SetUseType(SIMPLE_USE)
 	self:Setkiosk_price(GetConVar("medickiosk_minprice"):GetInt())
 	self:Setkiosk_fuel_level( 480 )
+	self:SetMaterial("models/player/shared/ice_player")
 	util.AddNetworkString( "usedMK" )
 	util.AddNetworkString( "alertMedic" )
-	local phys = self:GetPhysicsObject()
+	-- local phys = self:GetPhysicsObject()
+	-- self:Freeze(true)
 	if self:Getowning_ent() then
 		net.Start( "alertMedic" )
 		net.Send(self:Getowning_ent())
@@ -59,12 +61,28 @@ function ENT:Initialize()
 
 				end
 			end
+			elseif said_check == "/kioskcolor" then
+				local newColor = said.sub(said, 13)
+				if newColor == "red" then
+						self:SetColor(Color(255, 0, 255, 255))
+					elseif newColor == "green" then
+						self:SetColor(Color(0, 255, 0, 255))
+					elseif newColor == "pink" then
+						self:SetColor(Color(255, 192, 203, 255))
+					elseif newColor == "black" then
+						self:SetColor(Color(0, 0, 0, 255))
+					elseif newColor == "orange" then
+						self:SetColor(Color(255, 128, 0, 255))
+					elseif newColor == "purple"	then
+						self:SetColor(Color(160, 32, 240, 255))
+					elseif newColor == "white" then
+						self:SetColor(Color(255, 255, 255, 255))						
+				end
+				return ""
+
 		end
 	end
 	hook.Add("PlayerSay", "changeInfo", changeInfo)
-  if (phys:IsValid()) then
-		phys:Wake()
-	end
 end
 
 function ENT:Use( activator, caller )
@@ -124,3 +142,4 @@ function allowPickUp(ply, ent)
 	end
 end
 hook.Add("PhysgunPickup", "allowPickUp", allowPickUp)
+
