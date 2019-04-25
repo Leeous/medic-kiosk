@@ -64,7 +64,7 @@ function ENT:Initialize()
 			elseif said_check == "/kioskcolor" then
 				local newColor = said.sub(said, 13)
 				if newColor == "red" then
-						self:SetColor(Color(255, 0, 255, 255))
+						self:SetColor(Color(255, 0, 0, 255))
 					elseif newColor == "green" then
 						self:SetColor(Color(0, 255, 0, 255))
 					elseif newColor == "pink" then
